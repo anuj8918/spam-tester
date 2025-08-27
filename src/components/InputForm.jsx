@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const InputForm = ({ onAnalyze, isLoading }) => {
   const [subject, setSubject] = useState('');
-  // const [preheader, setPreheader] = useState('');
+  const [preheader, setPreheader] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,7 +10,7 @@ const InputForm = ({ onAnalyze, isLoading }) => {
       alert("Please enter a subject line.");
       return;
     }
-    onAnalyze(subject);
+    onAnalyze(subject, preheader);
   };
 
   return (
@@ -26,7 +26,7 @@ const InputForm = ({ onAnalyze, isLoading }) => {
           disabled={isLoading}
         />
       </div>
-      {/* <div className="form-group">
+      <div className="form-group">
         <label htmlFor="preheader">Pre-header Text (Optional)</label>
         <textarea
           id="preheader"
@@ -36,7 +36,7 @@ const InputForm = ({ onAnalyze, isLoading }) => {
           rows="3"
           disabled={isLoading}
         />
-      </div> */}
+      </div>
       <button type="submit" disabled={isLoading}>
         {isLoading ? 'Analyzing...' : 'Analyze Now'}
       </button>

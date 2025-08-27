@@ -7,13 +7,13 @@ const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'YOUR_GEMINI_API_KEY';
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
 
 // 👇 UPDATED AND IMPROVED PROMPT
-const buildPrompt = (subject) => {
+const buildPrompt = (subject, preheader) => {
   return `
     You are an expert email deliverability analyst. 
     Your task is to evaluate the following email subject line and pre-header text for both spam risk and deliverability.
 
     Subject: "${subject}"
-    
+    Pre-header: "${preheader}"
 
     Return the response in STRICT JSON format only (no explanations, no markdown, no extra text). 
     The JSON must include:
@@ -47,7 +47,7 @@ const buildPrompt = (subject) => {
 };
 
 
-export const analyzeEmailContent = async (subject) => {
+export const analyzeEmailContent = async (subject, preheader) => {
   if (!subject) {
     throw new Error("Subject line cannot be empty.");
   }
@@ -56,7 +56,7 @@ export const analyzeEmailContent = async (subject) => {
     throw new Error("Please add your Gemini API Key in src/services/geminiService.js");
   }
 
-  const prompt = buildPrompt(subject);
+  const prompt = buildPrompt(subject, preheader);
 
   const requestBody = {
     contents: [{

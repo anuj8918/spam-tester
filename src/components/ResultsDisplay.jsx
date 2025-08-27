@@ -1,6 +1,5 @@
-import React from 'react';  
-
-const ResultsDisplay = ({ result, isLoading, error, subject }) => {
+import React from 'react';
+const ResultsDisplay = ({ result, isLoading, error, subject, preheader }) => {
   if (isLoading) {
     return <div className="loading">Analyzing, please wait...</div>;
   }
@@ -28,6 +27,7 @@ const ResultsDisplay = ({ result, isLoading, error, subject }) => {
     lengthColor = 'green';
   }
 
+  // Spam Score
   const score = result.deliverabilityScore || 0;
   const scoreColor = score <= 3 ? 'red' : score <= 6 ? 'orange' : 'green';
 
@@ -35,12 +35,13 @@ const ResultsDisplay = ({ result, isLoading, error, subject }) => {
     <div className="results-container">
       <h2>Analysis Results</h2>
       
+      {/* CARD FOR INBOX PREVIEW */}
       <div className="result-card preview-card">
         <h3>Inbox Preview</h3>
         <div className="preview-content">
           <div className="subject-line">
             <span className="subject">{subject}</span>
-            {/* <span className="preheader-text"> - {preheader || " "}</span> */}
+            <span className="preheader-text"> - {preheader || " "}</span>
           </div>
         </div>
       </div>
