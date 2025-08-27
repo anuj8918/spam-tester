@@ -11,17 +11,15 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [submittedSubject, setSubmittedSubject] = useState('');
-  const [submittedPreheader, setSubmittedPreheader] = useState(''); // <-- ADD THIS LINE
 
-  const handleAnalyze = async (subject, preheader) => {
+  const handleAnalyze = async (subject) => {
     setIsLoading(true);
     setError(null);
     setAnalysisResult(null);
     setSubmittedSubject(subject);
-    setSubmittedPreheader(preheader); // <-- ADD THIS LINE
 
     try {
-      const result = await analyzeEmailContent(subject, preheader);
+      const result = await analyzeEmailContent(subject);
       setAnalysisResult(result);
     } catch (err) {
       setError(err.message);
@@ -41,8 +39,7 @@ function App() {
           result={analysisResult}
           isLoading={isLoading}
           error={error}
-          subject={submittedSubject}
-          preheader={submittedPreheader} 
+          subject={submittedSubject} 
         />
       </main>
     </div>
